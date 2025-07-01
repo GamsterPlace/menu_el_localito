@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menú del Restaurante</title>
+  <style>
+    :root {
+      --primary-color: #ffffff;
+      --accent-color: #f4f4f4;
+      --text-color: #333;
+      --muted-color: #888;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--accent-color);
+      color: var(--text-color);
+    }
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: var(--primary-color);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    p.subtitle {
+      color: var(--muted-color);
+      font-size: 1.1rem;
+    }
+    .menu-section {
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+    .section-title {
+      border-bottom: 2px solid #ddd;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      padding-bottom: 0.5rem;
+      text-align: center;
+    }
+    .horizontal-scroll {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+    }
+    .menu-item {
+      flex: 0 0 auto;
+      width: 250px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      scroll-snap-align: center;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .menu-item:hover {
+      transform: scale(1.05);
+    }
+    .menu-image {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    .menu-content {
+      padding: 1rem;
+    }
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .item-description {
+      color: var(--muted-color);
+      font-size: 0.9rem;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+    }
+    .modal-content img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .close-button {
+      position: absolute;
+      top: 0.5rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #888;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 2rem 1rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Restaurante Delicia</h1>
+    <p class="subtitle">Menú Digital</p>
+  </header>
+
+  <!-- Entradas -->
+  <section class="menu-section">
+  <h2 class="section-title">Entradas</h2>
+  <div class="horizontal-scroll">
+    <div class="menu-item" onclick="openModal('Pan de Ajo', 'Q18', 'Pan artesanal tostado con mantequilla de ajo.', 'img/pan-de-ajo.jpg')">
+      <img src="img/pan-de-ajo.jpg" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Pan de Ajo</span><span>Q18</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Bruschettas', 'Q22', 'Pan con tomate, ajo, albahaca y aceite de oliva.', 'img/bruschettas.jpg')">
+      <img src="img/bruschettas.jpg" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Bruschettas</span><span>Q22</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Empanadas de Pollo', 'Q25', 'Empanadas caseras rellenas de pollo especiado.', 'img/empanadas.jpg')">
+      <img src="img/empanadas.jpg" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Empanadas</span><span>Q25</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Ceviche de Camarón', 'Q35', 'Camarón marinado en limón con vegetales frescos.', 'img/ceviche.jpg')">
+      <img src="img/ceviche.jpg" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Ceviche</span><span>Q35</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Nachos con Queso', 'Q28', 'Totopos crujientes con salsa de queso cheddar.', 'img/nachos.jpg')">
+      <img src="img/nachos.jpg" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Nachos con Queso</span><span>Q28</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Alitas BBQ', 'Q38', '6 piezas bañadas en salsa barbacoa.', 'img/alitas.jpg')">
+      <img src="img/alitas.jpg" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Alitas BBQ</span><span>Q38</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Ensalada Caprese', 'Q32', 'Tomate, mozzarella y albahaca fresca.', 'img/caprese.jpg')">
+      <img src="img/caprese.jpg" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Caprese</span><span>Q32</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Croquetas de Jamón', 'Q30', 'Croquetas crujientes rellenas de jamón.', 'img/croquetas.jpg')">
+      <img src="img/croquetas.jpg" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Croquetas</span><span>Q30</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Queso Fundido', 'Q36', 'Queso derretido con chorizo y tortillas.', 'img/queso-fundido.jpg')">
+      <img src="img/queso-fundido.jpg" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Queso Fundido</span><span>Q36</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Tostadas de Aguacate', 'Q26', 'Pan tostado con aguacate, tomate y huevo.', 'img/aguacate.jpg')">
+      <img src="img/aguacate.jpg" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Tostadas</span><span>Q26</span></div></div>
+    </div>
+  </div>
+</section>
+
+  <!-- Platos Fuertes -->
+  <section class="menu-section">
+  <h2 class="section-title">Platos Fuertes</h2>
+  <div class="horizontal-scroll">
+    <div class="menu-item" onclick="openModal('Pollo en Crema', 'Q60', 'Jugoso pollo en salsa de crema con arroz.', 'https://via.placeholder.com/400x240?text=Pollo+en+Crema')">
+      <img src="https://via.placeholder.com/300x180?text=Pollo+en+Crema" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Pollo en Crema</span><span>Q60</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Carne Guisada', 'Q65', 'Carne cocida con papas y zanahorias.', 'https://via.placeholder.com/400x240?text=Carne+Guisada')">
+      <img src="https://via.placeholder.com/300x180?text=Carne+Guisada" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Carne Guisada</span><span>Q65</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Pescado Empanizado', 'Q62', 'Pescado crujiente con ensalada y arroz.', 'https://via.placeholder.com/400x240?text=Pescado')">
+      <img src="https://via.placeholder.com/300x180?text=Pescado" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Pescado Empanizado</span><span>Q62</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Chuleta de Cerdo', 'Q58', 'Chuleta a la plancha con puré.', 'https://via.placeholder.com/400x240?text=Chuleta')">
+      <img src="https://via.placeholder.com/300x180?text=Chuleta" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Chuleta de Cerdo</span><span>Q58</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Spaghetti Alfredo', 'Q55', 'Pasta con salsa alfredo y pollo.', 'https://via.placeholder.com/400x240?text=Spaghetti')">
+      <img src="https://via.placeholder.com/300x180?text=Spaghetti" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Spaghetti Alfredo</span><span>Q55</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Costillas BBQ', 'Q75', 'Costillas jugosas con papas fritas.', 'https://via.placeholder.com/400x240?text=Costillas')">
+      <img src="https://via.placeholder.com/300x180?text=Costillas" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Costillas BBQ</span><span>Q75</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Enchiladas Rojas', 'Q50', 'Enchiladas de carne con salsa roja.', 'https://via.placeholder.com/400x240?text=Enchiladas')">
+      <img src="https://via.placeholder.com/300x180?text=Enchiladas" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Enchiladas Rojas</span><span>Q50</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Fajitas Mixtas', 'Q68', 'Carne y pollo con vegetales salteados.', 'https://via.placeholder.com/400x240?text=Fajitas')">
+      <img src="https://via.placeholder.com/300x180?text=Fajitas" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Fajitas Mixtas</span><span>Q68</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Pepián de Pollo', 'Q63', 'Guiso tradicional con arroz y tortillas.', 'https://via.placeholder.com/400x240?text=Pepián')">
+      <img src="https://via.placeholder.com/300x180?text=Pepián" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Pepián de Pollo</span><span>Q63</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Churrasco Mixto', 'Q85', 'Carne, longaniza y chorizo con guarniciones.', 'https://via.placeholder.com/400x240?text=Churrasco')">
+      <img src="https://via.placeholder.com/300x180?text=Churrasco" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Churrasco Mixto</span><span>Q85</span></div></div>
+    </div>
+  </div>
+</section>
+
+  <!-- Bebidas -->
+  <section class="menu-section">
+  <h2 class="section-title">Bebidas</h2>
+  <div class="horizontal-scroll">
+    <div class="menu-item" onclick="openModal('Limonada Natural', 'Q8 / Q10 / Q12', 'Fresca y natural. Tamaños: Pequeño, Mediano, Grande.', 'https://via.placeholder.com/400x240?text=Limonada')">
+      <img src="https://via.placeholder.com/300x180?text=Limonada" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Limonada</span><span>Q8-12</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Tamarindo', 'Q8 / Q10 / Q12', 'Refrescante bebida de tamarindo.', 'https://via.placeholder.com/400x240?text=Tamarindo')">
+      <img src="https://via.placeholder.com/300x180?text=Tamarindo" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Tamarindo</span><span>Q8-12</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Jamaica', 'Q8 / Q10 / Q12', 'Agua de flor de jamaica.', 'https://via.placeholder.com/400x240?text=Jamaica')">
+      <img src="https://via.placeholder.com/300x180?text=Jamaica" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Jamaica</span><span>Q8-12</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Coca-Cola', 'Q10 / Q12 / Q15', 'Bebida gaseosa en varios tamaños.', 'https://via.placeholder.com/400x240?text=Coca-Cola')">
+      <img src="https://via.placeholder.com/300x180?text=Coca-Cola" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Coca-Cola</span><span>Q10-15</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Agua Pura', 'Q6 / Q8 / Q10', 'Agua embotellada sin gas.', 'https://via.placeholder.com/400x240?text=Agua')">
+      <img src="https://via.placeholder.com/300x180?text=Agua" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Agua Pura</span><span>Q6-10</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Café', 'Q12 / Q14 / Q16', 'Café caliente en tres tamaños.', 'https://via.placeholder.com/400x240?text=Café')">
+      <img src="https://via.placeholder.com/300x180?text=Café" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Café</span><span>Q12-16</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Chocolate Caliente', 'Q12 / Q14 / Q16', 'Bebida caliente de cacao.', 'https://via.placeholder.com/400x240?text=Chocolate')">
+      <img src="https://via.placeholder.com/300x180?text=Chocolate" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Chocolate</span><span>Q12-16</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Smoothie de Fresa', 'Q15 / Q18 / Q20', 'Batido natural de fresa.', 'https://via.placeholder.com/400x240?text=Smoothie')">
+      <img src="https://via.placeholder.com/300x180?text=Smoothie" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Smoothie</span><span>Q15-20</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Té Helado', 'Q8 / Q10 / Q12', 'Refrescante té con limón.', 'https://via.placeholder.com/400x240?text=Té+Helado')">
+      <img src="https://via.placeholder.com/300x180?text=Té+Helado" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Té Helado</span><span>Q8-12</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Jugo de Naranja', 'Q10 / Q12 / Q14', 'Jugo natural exprimido.', 'https://via.placeholder.com/400x240?text=Naranja')">
+      <img src="https://via.placeholder.com/300x180?text=Naranja" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Jugo Naranja</span><span>Q10-14</span></div></div>
+    </div>
+  </div>
+</section>
+
+  <section class="menu-section">
+  <h2 class="section-title">Platos Especiales</h2>
+  <div class="horizontal-scroll" id="specials">
+    <div class="menu-item" onclick="openModal('Pizza Margarita', 'Q60', 'Pizza clásica con tomate, mozzarella y albahaca.', 'https://via.placeholder.com/400x240?text=Pizza')">
+      <img src="https://via.placeholder.com/300x180?text=Pizza" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Pizza Margarita</span><span>Q60</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Hamburguesa BBQ', 'Q55', 'Con carne angus, tocino y salsa barbacoa.', 'https://via.placeholder.com/400x240?text=Burger')">
+      <img src="https://via.placeholder.com/300x180?text=Burger" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Hamburguesa BBQ</span><span>Q55</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Tacos al Pastor', 'Q48', 'Tortillas de maíz con carne de cerdo marinada.', 'https://via.placeholder.com/400x240?text=Tacos')">
+      <img src="https://via.placeholder.com/300x180?text=Tacos" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Tacos al Pastor</span><span>Q48</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Sushi Roll', 'Q68', 'Rollo de arroz con salmón y aguacate.', 'https://via.placeholder.com/400x240?text=Sushi')">
+      <img src="https://via.placeholder.com/300x180?text=Sushi" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Sushi Roll</span><span>Q68</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Lasaña de Res', 'Q62', 'Capas de pasta con carne, tomate y queso.', 'https://via.placeholder.com/400x240?text=Lasaña')">
+      <img src="https://via.placeholder.com/300x180?text=Lasaña" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Lasaña de Res</span><span>Q62</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Filete de Salmón', 'Q80', 'A la plancha con limón y eneldo.', 'https://via.placeholder.com/400x240?text=Salmón')">
+      <img src="https://via.placeholder.com/300x180?text=Salmón" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Filete de Salmón</span><span>Q80</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Pollo a la Parrilla', 'Q58', 'Marinado con especias y ensalada.', 'https://via.placeholder.com/400x240?text=Pollo')">
+      <img src="https://via.placeholder.com/300x180?text=Pollo" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Pollo a la Parrilla</span><span>Q58</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Pasta Boloñesa', 'Q59', 'Espaguetis con salsa de carne y tomate.', 'https://via.placeholder.com/400x240?text=Pasta')">
+      <img src="https://via.placeholder.com/300x180?text=Pasta" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Pasta Boloñesa</span><span>Q59</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Churrasco', 'Q85', 'Carne asada con papas y chimichurri.', 'https://via.placeholder.com/400x240?text=Churrasco')">
+      <img src="https://via.placeholder.com/300x180?text=Churrasco" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Churrasco</span><span>Q85</span></div></div>
+    </div>
+    <div class="menu-item" onclick="openModal('Camarones al Ajillo', 'Q75', 'Camarones salteados con ajo y mantequilla.', 'https://via.placeholder.com/400x240?text=Camarones')">
+      <img src="https://via.placeholder.com/300x180?text=Camarones" class="menu-image" />
+      <div class="menu-content"><div class="item-header"><span>Camarones al Ajillo</span><span>Q75</span></div></div>
+    </div>
+  </div>
+</section>
+
+  <!-- Modal para detalles -->
+  <div class="modal" id="itemModal">
+  <div class="modal-content">
+    <span class="close-button" onclick="closeModal()">&times;</span>
+    <img id="modalImg" src="" alt="Imagen del platillo">
+    <h2 id="modalTitle"></h2>
+    <p id="modalPrice"></p>
+    <p id="modalDesc"></p>
+  </div>
+</div>
+
+  <footer>
+    © 2025 Restaurante Delicia - Menú generado por GamsterPlace
+  </footer>
+
+  <script>
+  function openModal(title, price, desc, img) {
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalPrice').innerText = price;
+    document.getElementById('modalDesc').innerText = desc;
+    document.getElementById('modalImg').src = img;
+    document.getElementById('itemModal').style.display = 'flex';
+  }
+  function closeModal() {
+    document.getElementById('itemModal').style.display = 'none';
+  }
+</script>
+</body>
+</html>
