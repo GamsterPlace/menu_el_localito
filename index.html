@@ -118,7 +118,6 @@
       color: var(--color-dorado);
     }
 
-    /* Modal */
     .modal {
   display: none;
   position: fixed;
@@ -132,7 +131,7 @@
 }
 
     .modal-content {
-    background-color: var(--color-secundario); /* color secundario oscuro */
+    background-color: var(--color-secundario);
     color: var(--color-texto);
     margin: 5% auto;
     padding: 2rem;
@@ -141,7 +140,7 @@
     max-width: 480px;
     text-align: center;
     position: relative;
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.6); /* sombra dorada suave */
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
     font-family: 'Open Sans', sans-serif;
     }
 
@@ -196,10 +195,11 @@
     gap: 1rem;
     }
 
-    .logo-img { 
-    height: 130px;
-    object-fit: contain;
-    margin-left: 1rem;
+    .logo-img {
+      height: 130px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
     }
 
     .logo-text-container {
@@ -323,7 +323,7 @@
 
   if (extras.length > 0) {
     extrasContainer.style.display = 'block';
-    extrasList.innerHTML = ''; // limpia lista previa
+    extrasList.innerHTML = '';
     extras.forEach(extra => {
       const li = document.createElement('li');
       li.textContent = extra;
@@ -375,10 +375,9 @@ function closeMultiPriceModal() {
 </head>
 <body>
 
-  <!-- ENCABEZADO CON NAVEGACIÓN -->
   <header id="top">
      <div class="header-container">
-    <img src="img/logo.jpg" alt="Logo Elocalito" class="logo-img" />
+    
     
     <div class="logo-text-container">
       <div class="logo-text">ELocalito</div>
@@ -392,8 +391,6 @@ function closeMultiPriceModal() {
     </nav>
   </div>
   </header>
-
-  <!-- MODAL DE MENÚ DEL DÍA -->
   
   <div id="menuModal" class="modal">
   <div class="modal-content">
@@ -414,7 +411,6 @@ function closeMultiPriceModal() {
   </div>
 </div>
 
-<!-- MODAL DE los items -->
 <div class="modal" id="itemModal">
   <div class="modal-content">
     <span class="close-button" onclick="closeModal()">&times;</span>
@@ -439,7 +435,8 @@ function closeMultiPriceModal() {
     <div id="multiPriceList" class="price-list"></div>
   </div>
 </div>
-
+    <br>
+  <img src="img/logo.jpg" alt="Logo Elocalito" class="logo-img" />
 
 <main class="menu-secciones">
 
